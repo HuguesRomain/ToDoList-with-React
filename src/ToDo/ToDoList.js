@@ -11,8 +11,26 @@ class ToDoList extends Component {
   onChange(event){
     this.setState({
       userImputs: event.target.value,
-    }, () => console.log(this.state.userImputs));
+    });
   }
+
+  renderToDos(){
+    return this.state.items.map((item) => {
+      return(
+      <div key={item}>
+         {item} | <button>X</button>
+      </div>
+      );
+    });
+  }
+
+  addToDo(event) { 
+    event.preventDefault(); 
+    this.setState({
+      userImputs: '',
+      items: [...this.state.items, this.state.userImputs]
+    }, () => console.log(this.state));
+  };
 
   render() {
     return(
@@ -20,14 +38,17 @@ class ToDoList extends Component {
         <h1>My To Do List</h1>
         <form>
           <input 
-          value={this.state.userImputs} 
-          type='text' 
-          placeholder="Write somethings"
-          onChange={this.onChange.bind(this)}
-          />
+            value={this.state.userImputs} 
+           type='text' 
+           placeholder="Write somethings"
+           onChange={this.onChange.bind(this)}
+           />
        
-          <button>Add</button> 
+          <button onClick={this.addToDo.bind(this)}>Add</button> 
         </form>
+        <div>
+          {this.renderToDos()}
+        </div>
       </div>
     )
   }
