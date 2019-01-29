@@ -20,29 +20,27 @@ class ToDoList extends Component {
       userImputs: '',
       items: [...this.state.items, this.state.userImputs]
     });
-  };
+};
 
-  deleteToDo(event) {
-    event.preventDefault(); 
-    var array = this.state.items;
-    var index = array.indexOf(event.target.value);
-    array.splice(index);
+  deleteTodo(item) {
+    const array = this.state.items;
+    const index = array.indexOf(item);
+    array.splice(index, 1);
     this.setState({
-      items: array,
-    }); 
-  }
-
-  renderToDos(){
-    return this.state.items.map((item) => {
-      return(
-      <div key={item}>
-         {item} | <button 
-         onClick={this.deleteToDo.bind(this)}
-         className="btn btn-danger">X</button> 
-      </div>
-      );
+        items: array
     });
-  }
+}
+
+renderTodos() {
+  return this.state.items.map((item) => {
+      return (
+          <div className="list-group-item" key={item}>
+              {item} | <button onClick={this.deleteTodo.bind(this, item)} className="btn btn-danger">X</button>
+          </div>    
+      );
+  });
+}
+
 
   render() {
     return(
@@ -53,6 +51,7 @@ class ToDoList extends Component {
             value={this.state.userImputs} 
            type='text' 
            placeholder="Write somethings"
+           required
            onChange={this.onChange.bind(this)}
            className="form-control mb-2"
            />
@@ -62,7 +61,7 @@ class ToDoList extends Component {
           className="btn btn-primary">Add</button> 
         </form>
         <div>
-          {this.renderToDos()}
+          {this.renderTodos()}
         </div>
       </div>
     )
