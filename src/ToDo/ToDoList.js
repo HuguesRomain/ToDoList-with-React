@@ -32,9 +32,9 @@ class ToDoList extends Component {
 }
 
 renderTodos() {
-  return this.state.items.map((item) => {
+  return this.state.items.map((item, i) => {
       return (
-          <div className="list-group-item" key={item}>
+          <div className="list-group-item" key={i}>
               {item} | <button onClick={this.deleteTodo.bind(this, item)} className="btn btn-danger">X</button>
           </div>    
       );
